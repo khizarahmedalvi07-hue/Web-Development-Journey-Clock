@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+  <style>
+    body {
+      background-color: rgb(30, 30, 30);
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      transition-duration: 0.8s;
+      
+    }
+    .darkbody {
+      background-color: whitesmoke;
+      color: rgb(35, 34, 34);
+    }
+    .mainbody {
+      display: flex;
+      justify-content: center;
+      margin-top: 15vh;
+      margin-left: 110px;
+
+    }
+    .box {
+      background-color: rgba(119, 119, 119, 0.16);
+      border:2px solid rgba(128, 128, 128, 0.377);
+      margin-top: 10%;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .box p {
+      display: inline;
+     
+   
+    }
+    .hour {
+   font-size: 50px;
+     
+    }
+    .minutes {
+   font-size: 50px;
+    }
+    .second { 
+   font-size: 50px;
+    }
+    .milli {
+      font-size: 20px;
+    }
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background-color: rgba(132, 130, 130, 0.215);
+      height: 15%;
+      border-bottom:2px solid rgba(128, 128, 128, 0.377);
+      
+    }
+    .inner-navbar {
+      display: flex;
+      flex-direction: row;
+    }
+    .inner-navbar img {
+      margin-top: 10px;
+    }
+    .left-nav {
+      margin-left: 10px;
+    }
+    .right-nav {
+      display: inline;
+      position: absolute;
+    }
+    .nav-button-div {
+      position: fixed;
+      right: 30px;
+      top: 30px;
+      padding-top: 5px;padding-bottom: 5px;
+      border: none;
+      border-radius: 5px;
+     
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .nav-button-div button {
+      background:transparent;
+       color: inherit;
+       padding:10px;
+       border: none;
+       border-radius: 5px;
+       font-size: 15px;
+       transition: 0.3s;
+       cursor: pointer;
+       font-weight: bold;
+    }
+    .nav-button-div button:hover {
+    
+      background: rgba(128, 128, 128, 0.379);
+    }
+    .nav-button-div button:active {
+     
+      background: rgba(128, 128, 128, 0.228);
+    }
+    .sidebar {
+      position: fixed;
+      bottom: 0;
+      top: 15%;
+      left: 0;
+      width: 100px;
+       background-color: rgba(132, 130, 130, 0.215);
+       border-right:2px solid rgba(128, 128, 128, 0.377);
+    }
+    .inner-sidebar {
+      display: flex;
+      flex-direction: column;
+    }
+    .inner-sidebar button {
+      background: transparent;
+      border: none;
+      border-bottom:2px solid rgba(128, 128, 128, 0.377) ;
+      height: 70px;
+      color: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      transition-duration: 0.4s;
+    }
+    .inner-sidebar button:hover {
+      background: rgba(128, 128, 128, 0.429);
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="inner-navbar">
+        <div class="left-nav"> <img src="images/blackbglogo.png" height="80px"> </div>
+        <div class="right-nav">
+          <div class="nav-button-div">
+             <button>To Do List</button>
+             <button>Shopping</button>
+             <button onclick="darkmode();">Dark Mode</button>
+          </div>
+         </div>
+    </div>
+    
+    <div class="sidebar">
+      <div class="inner-sidebar">
+          <button onclick="window.location.href='Timer.html'">Timer</button>
+          <button onclick="window.location.href='Stopwatch.html'">Stopwatch</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="mainbody">
+        <div class="box">
+              <p class="hour">24:</p>
+              <p class="minutes">60:</p>
+              <p class="second">60.</p>
+              <p class="milli">100</p>
+        </div>
+  </div>
+
+
+<script>
+  
+   let counter=0;
+   let clockInterval;
+ 
+
+
+   
+   clock()
+  // Clock Start
+   
+   function clock() {
+   clockInterval=setInterval(() => {
+
+     let timeVar=new Date();
+
+    let hour=timeVar.getHours();
+   let minutes=timeVar.getMinutes();
+   let seconds=timeVar.getSeconds();
+   let millisecond=timeVar.getMilliseconds();
+
+    document.querySelector('.hour').innerHTML=`${hour}:`;
+    document.querySelector('.minutes').innerHTML=`${minutes}:`;
+    document.querySelector('.second').innerHTML=`${seconds}.`;
+    document.querySelector('.milli').innerHTML=`${millisecond}`;
+    console.log(hour,minutes,seconds,millisecond);
+   }, 10);
+  }
+
+  // Clock End
+
+  function Stopwatch() {
+    clearInterval(clockInterval);
+    let hour=0;
+    console.log(hour)
+  }
+  
+
+  // Dark Mode Start
+       
+   function darkmode() {
+
+    if (counter==0) {counter+=1;active();}
+    else{counter-=1;deactive();}
+
+   }
+   function active() {
+    document.querySelector('body').classList.add('darkbody');
+    document.querySelector('.left-nav').innerHTML=`<img src="images/whitebglogo.png" height="80px">`
+   }
+   function deactive() {
+    document.querySelector('body').classList.remove('darkbody');
+    document.querySelector('.left-nav').innerHTML=`<img src="images/blackbglogo.png" height="80px">`
+   }
+   // Dark Mode End 
+
+</script>
+</body>
+</html>
