@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+  <style>
+    body {
+      background-color: rgb(30, 30, 30);
+      color: whitesmoke;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      transition-duration: 0.8s;
+      
+    }
+    .darkbody {
+      background-color: whitesmoke;
+      color: rgb(35, 34, 34);
+    }
+    .mainbody {
+      display: flex;
+      justify-content: center;
+      margin-top: 15vh;
+      margin-left: 50px;
+
+    }
+    .box {
+      background-color: rgba(119, 119, 119, 0.16);
+      border:2px solid rgba(128, 128, 128, 0.377);
+      margin-top: 10%;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .box p {
+      display: inline;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background-color: rgba(132, 130, 130, 0.215);
+      height: 15%;
+      border-bottom:2px solid rgba(128, 128, 128, 0.377);
+      
+    }
+    .inner-navbar {
+      display: flex;
+      flex-direction: row;
+    }
+    .inner-navbar img {
+      margin-top: 10px;
+    }
+    .left-nav {
+      margin-left: 10px;
+      display: flex;
+      
+    }
+    .right-nav {
+      display: inline;
+      position: absolute;
+    }
+    .nav-button-div {
+      position: fixed;
+      right: 30px;
+      top: 30px;
+      padding-top: 5px;padding-bottom: 5px;
+      border: none;
+      border-radius: 5px;
+     
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .nav-button-div button {
+      background:transparent;
+       color: inherit;
+       padding:10px;
+       border: none;
+       border-radius: 5px;
+       font-size: 15px;
+       transition: 0.3s;
+       cursor: pointer;
+       font-weight: bold;
+    }
+    .nav-button-div button:hover {
+    
+      background: rgba(128, 128, 128, 0.379);
+    }
+    .nav-button-div button:active {
+     
+      background: rgba(128, 128, 128, 0.228);
+    }
+    .outer-sidebar {
+      transition-duration: 1s;
+      
+    }
+    .sidebar {
+      position: fixed;
+      bottom: 0;
+      top: 15%;
+      left: 0;
+      width: 100px;
+       background-color: rgba(132, 130, 130, 0.215);
+       backdrop-filter: blur(10px);
+       border-right:2px solid rgba(128, 128, 128, 0.377);
+    }
+    .inner-sidebar {
+      display: flex;
+      flex-direction: column;
+    }
+    .inner-sidebar button {
+      background: transparent;
+      border: none;
+      border-bottom:2px solid rgba(128, 128, 128, 0.377) ;
+      height: 70px;
+      color: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      transition-duration: 0.4s;
+    }
+    .inner-sidebar button:hover {
+      background: rgba(128, 128, 128, 0.429);
+    }
+    .hamburger-div img {
+    margin-top: 35px;
+    margin-right: 20px;
+    margin-left: 5px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    }
+    .hamburger-div img:hover {
+    background: gray;
+    }
+    @media (max-width:1000px) {
+      .hamburger-div img {
+        margin-right: 10vh;
+      }
+    }
+    .text {
+      font-weight: bolder;
+      font-size: 7vh;
+      margin-top: 8vh;
+      color: inherit;
+    }
+    .inputs-div input {
+      background-color: rgba(128, 128, 128, 0.185);
+      color: inherit;
+      border: 1px solid rgba(128, 128, 128, 0.735);
+      height: 30px;
+      width: 220px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      outline: none;
+      transition-duration: 0.5s;
+      border-radius: 5px;
+      
+    }
+     .inputs-div input:hover {
+      background: rgba(128, 128, 128, 0.231);
+     }
+     .inputs-div button{
+      margin-top: 50px;
+      background: transparent;
+      /* border: 1px solid gray; */
+      border: none;
+      background: rgb(7, 111, 229);
+      width: 85%;
+      color: white;
+      font-weight: bolder;
+      height: 40px;
+      cursor: pointer;
+      transition-duration: 0.3s;
+      border-radius: 5px;
+     }
+     .inputs-div button:hover {
+      background: rgba(128, 128, 128, 0.231);
+     }
+     .output-div {
+      /* border-top: 2px solid gray; */
+      margin-top: 20px;
+      width: 100%;
+     }
+     .output {
+      margin-left: 10px;
+      margin-right: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr  ;
+      column-gap: 20px;
+      row-gap: 5px;
+     }
+     .card {
+      background: rgba(128, 128, 128, 0.087);
+      border: 1px solid gray;
+      margin-top: 5px;
+      padding: 20px;
+      text-align: center;
+     }
+     .card-button-div {
+      border-top: 1px solid rgba(115, 115, 115, 0.235);
+      margin-top: 5px;
+     
+      padding: 10px;
+     }
+     .card-button-div button{
+      background:rgba(238, 6, 6, 0.895);
+      padding: 10px;
+      color: white;
+      border: 1px solid rgba(128, 128, 128, 0.461);
+      transition: 0.5s;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+     }
+     .card-button-div button:hover {
+      opacity: 85%;
+     }
+     .card-button-div button:active {
+      opacity: 75%;
+     }
+     .title {
+      font-weight: bold;
+      font-size: 3vh;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(115, 115, 115, 0.235);
+     }
+     .desc {
+      font-size: 1rem;
+     }
+     .popup {
+      position: fixed;
+      bottom: 10%;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      
+     }
+     .inner-popup {
+      background-color: rgba(119, 118, 118, 0.169);
+      color: inherit;
+      backdrop-filter: blur(5px);
+      padding:10px;
+      border-radius: 10px;
+      transition-duration: 0.4s;
+      font-weight: bold;
+     }
+
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="inner-navbar">
+        <div class="left-nav">
+           <div class="hamburger-div"><img onclick="sidebar()" src="images/hamburgerwhite.png" height="30px"> </div>
+          
+          </div>
+          <div style="display: flex;justify-content: center;">
+               <div class="logo-div"> <img src="images/blackbglogo.png" height="80px">  </div>
+          </div>
+        <div class="right-nav">
+          <div class="nav-button-div">
+             <button onclick="darkmode();">Dark Mode</button>
+          </div>
+         </div>
+    </div>
+    
+    <div class="outer-sidebar">
+    <!-- <div class="sidebar">
+      <div class="inner-sidebar">
+          <button onclick="window.location.href='Timer.html'">Timer</button>
+          <button onclick="window.location.href='Stopwatch.html'">Stopwatch</button>
+      </div>
+    </div> -->
+  </div>
+  </div>
+  <div class="mainbody">
+    <div style="display: flex;flex-direction: column;">
+      <div class="text">To Do List</div>
+      <div class="inputs-div">
+          <input class="inputTitle" placeholder="Title"><br>
+          <input class="inputDesc" placeholder="Description"> <br>
+          <div style="padding-left: 30px;padding-right: 30px;">  <button onclick="addToDo()">Add Todo</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="output-div">
+        <div class="output">
+            <!-- <div class="card">
+              <div class="title">University</div>
+              <div class="desc">Make ITC Labs, Make Pfund Assignment, Practice Lin Alg</div>
+              <div class="card-button-div"> <button class="card-button">Completed</button> </div>
+            </div> -->
+  </div>
+
+  <div class="popup">
+    
+  </div>
+
+
+<script>
+  
+   let counter=0;
+   let sidebarCounter=0;
+
+  // Dark Mode Start
+       
+   function darkmode() {
+
+    if (counter==0) {counter+=1;active();}
+    else{counter-=1;deactive();}
+
+   }
+   function active() {
+    document.querySelector('body').classList.add('darkbody');
+    document.querySelector('.logo-div').innerHTML=`<img  src="images/whitebglogo.png" height="80px">`
+    document.querySelector('.hamburger-div').innerHTML=`<img onclick="sidebar()" src="images/hamburger.png" height="30px">`
+   }
+   function deactive() {
+    document.querySelector('body').classList.remove('darkbody');
+    document.querySelector('.logo-div').innerHTML=`<img src="images/blackbglogo.png" height="80px">`
+    document.querySelector('.hamburger-div').innerHTML=`<img onclick="sidebar()" src="images/hamburgerwhite.png" height="30px">`
+
+   }
+   // Dark Mode End 
+
+  function sidebar() {
+  if (sidebarCounter==0) {sidebarCounter+=1;sidebarActive();}
+  else {sidebarCounter-=1;sidebarDeactive()}
+  }
+
+   function sidebarActive() {
+   document.querySelector('.outer-sidebar').innerHTML=`<div class="sidebar">
+      <div class="inner-sidebar">
+          <button onclick="window.location.href='Timer.html'">Timer</button>
+          <button onclick="window.location.href='Stopwatch.html'">Stopwatch</button>
+      </div>
+    </div>`
+   }
+   function sidebarDeactive() {
+    document.querySelector('.outer-sidebar').innerHTML=``
+   }
+   function addToDo() {
+    todoListInput();
+    render();
+    
+   }
+
+   todoListTitle=[];
+   todoListDesc=[];
+
+   function todoListInput() {
+
+    let titleInput=document.querySelector('.inputTitle').value;
+    let descInput=document.querySelector('.inputDesc').value;
+    // console.log(titleInput);
+    // console.log(descInput);
+    document.querySelector('.inputTitle').value='';
+    document.querySelector('.inputDesc').value='';
+    if(titleInput=='' || descInput=='') {popup("Enter A Value")}
+    else {
+    todoListTitle.push(titleInput);
+    todoListDesc.push(descInput);
+    }
+   }
+   function render() {
+    document.querySelector('.output').innerHTML=``
+    for (i=0;i<todoListTitle.length;i++) {
+      console.log(todoListTitle[i]);
+      console.log(todoListDesc[i]);
+      document.querySelector('.output').innerHTML+=`
+      <div class="card">
+              <div class="title">${todoListTitle[i]}</div>
+              <div class="desc">${todoListDesc[i]}</div>
+              <div class="card-button-div"> <button onclick="deleteTodo(${i})" class="card-button">Completed</button> </div>
+            </div>
+      `
+      popup("Added");
+    }
+   }
+   function deleteTodo(index) {
+    todoListTitle.splice(index,1);
+    todoListDesc.splice(index,1);
+    popup("Deleted Todo")
+    render();
+   }
+   function popup(msg) {
+    document.querySelector('.popup').innerHTML=`<div class="inner-popup">${msg}</div>`;
+    setTimeout(() => {
+      document.querySelector('.popup').innerHTML=``
+    }, 2000);
+   }
+ 
+</script>
+</body>
+</html>
